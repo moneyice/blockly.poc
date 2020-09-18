@@ -7,6 +7,7 @@ import com.qianyitian.blockly.function.MonthPerformFactorFunction;
 import com.qianyitian.blockly.function.MonthPerformSalaryStandardFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -23,8 +24,8 @@ public class BlocklyController {
     ExecutorService threadPool = Executors.newFixedThreadPool(2);
     Map<String, String> map = new HashMap<>();
 
-    String xml_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\hr_sample\\";
-    String rule_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\hr_sample\\";
+    String xml_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\files\\";
+    String rule_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\files\\";
 
     public BlocklyController() {
     }
@@ -92,6 +93,9 @@ public class BlocklyController {
     public String executeRule(@PathVariable String ruleName,@RequestBody String input) throws IOException {
         logger.info("Running   ======================================= " + input);
         String filename = rule_folder_path + ruleName + ".av";
+        if(StringUtils.isEmpty(input)){
+            input="111";
+        }
         String userid = input;
         Map<String, Object> env = AviatorEvaluator.newEnv("userId", userid);
         AviatorEvaluator.addFunction(new MonthPerformFactorFunction());
