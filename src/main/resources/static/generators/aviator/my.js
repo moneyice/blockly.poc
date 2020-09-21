@@ -42,9 +42,7 @@ Blockly.Aviator['my_function_2'] = function (block) {
   var funcName = block.helpUrl
   var argument0 = Blockly.Aviator.valueToCode(block, 'FIRST',
     Blockly.Aviator.ORDER_MODULUS) || '0';
-  var argument1 = Blockly.Aviator.valueToCode(block, 'SECOND',
-    Blockly.Aviator.ORDER_MODULUS) || '0';
-  var code = [funcName + '(' + argument0 + ',' + argument1 + ')', Blockly.Aviator.ORDER_FUNCTION_CALL]
+  var code = [funcName + '(' + argument0 + ')', Blockly.Aviator.ORDER_FUNCTION_CALL]
   return code;
 };
 

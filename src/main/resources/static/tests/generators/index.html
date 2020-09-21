@@ -28,6 +28,7 @@
     'use strict';
     var demoWorkspace = null;
     var outputCode = '';
+    let URI = 'http://localhost:8080/';
     function start() {
       demoWorkspace = Blockly.inject('blocklyDiv',
         {
@@ -129,17 +130,14 @@
     //带两个参数的函数  块样式配置
     Blockly.Blocks['my_function_2'] = {
       init: function () {
-        this.appendValueInput("FIRST")
+        this.appendValueInput("NAME")
           .setCheck(null)
-          .appendField(new Blockly.FieldLabelSerializable("税率"), "NAME");
-        this.appendDummyInput()
-          .appendField("|");
-        this.appendValueInput("SECOND")
-          .setCheck(null);
-        this.setPreviousStatement(true, 'Number');
+          .appendField(new Blockly.FieldLabelSerializable("计算个人所得税"), "NAME");
+        this.appendDummyInput();
+        this.setOutput(true, null);
         this.setColour(130);
-        this.setTooltip("rate");
-        this.setHelpUrl("rate");
+        this.setTooltip("");
+        this.setHelpUrl("calculateTax");
       }
     };
 
@@ -271,6 +269,7 @@
       outputCode = code;
     }
 
+
     function Save() {
       var fileName = document.getElementById('fileName').value
       if (fileName == '') {
@@ -286,11 +285,11 @@
       var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
       // xmlText = xmlText.replace(/ id="\d+"/g, '');
       // console.log(xmlText);
-      var url = 'http://localhost:8080/saveXML/'+fileName;
+      var url = URI + 'saveXML/' + fileName;
       $.ajax({
         url: url,
         type: 'post',
-        data:  xmlText,
+        data: xmlText,
         dataType: 'text',
         success: function (data) {
           console.log('XML保存成功', data);
@@ -304,7 +303,7 @@
     function SaveScript(fileName) {
       var code = '';
       code += Blockly.Aviator.workspaceToCode(demoWorkspace);
-      var url = 'http://localhost:8080/saveScript'+fileName;
+      var url = URI + 'saveScript/' + fileName;
       $.ajax({
         url: url,
         type: 'post',
@@ -323,15 +322,13 @@
     }
     function LoadXml() {
       var fileName = document.getElementById('fileName').value
-      var url = 'http://localhost:3001/loadXML';
+      var url = URI + 'loadXML/' + fileName;
       $.ajax({
         url: url,
         type: 'post',
-        data: { name: fileName },
+        data: fileName,
         dataType: 'text',
         success: function (data) {
-
-          console.log('打印xml', data, '11');
           fromXml('', data)
         },
         error: function (error) {
@@ -342,11 +339,11 @@
     }
     function Run() {
       var fileName = document.getElementById('fileName').value;
-      var url = 'http://localhost:3001/executeRule';
+      var url = URI + 'executeRule/' + fileName;
       $.ajax({
         url: url,
         type: 'post',
-        data: { name: fileName },
+        data: fileName,
         dataType: 'text',
         success: function (data) {
           document.getElementById('executeRule').value = data;

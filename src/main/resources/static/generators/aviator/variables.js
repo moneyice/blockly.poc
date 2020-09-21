@@ -16,10 +16,12 @@ goog.require('Blockly.Aviator');
 
 //获得MyData
 var VariablesData = getVariablesData();
+
 Blockly.Aviator['variables_get'] = function (block) {
   // Variable getter.
   var variablesName = Blockly.Aviator.variableDB_.getName(block.getFieldValue('VAR'),
     Blockly.VARIABLE_CATEGORY_NAME);
+    console.log(variablesName);
   return [variablesName, Blockly.Aviator.ORDER_ATOMIC];
 };
 
