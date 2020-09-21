@@ -23,13 +23,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @RestController
+@CrossOrigin
 public class BlocklyController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     ExecutorService threadPool = Executors.newFixedThreadPool(2);
     Map<String, String> map = new HashMap<>();
 
-    String xml_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\files\\";
-    String rule_folder_path = "C:\\Users\\bing.a.qian\\IdeaProjects\\blockly.poc\\files\\";
+    static {
+        File directory = new File("");//参数为空
+        String author = directory.getAbsolutePath();
+    }
+
+    String xml_folder_path = System.getProperty("user.dir") + "\\files\\";
+    String rule_folder_path = System.getProperty("user.dir") + "\\files\\";
 
     public BlocklyController() {
     }
@@ -48,6 +54,7 @@ public class BlocklyController {
     @PostMapping(value = "/saveScript/{ruleName}")
     public String saveScript(@PathVariable String ruleName, @RequestBody String input) throws IOException {
         logger.info("saveScript   ======================================= " + input);
+        logger.info("rule_folder_path   ======================================= " + rule_folder_path);
         String filename = rule_folder_path + ruleName + ".av";
         FileUtil.fileLinesWrite(filename, input);
         return "OK";
@@ -64,7 +71,9 @@ public class BlocklyController {
     @PostMapping(value = "/saveXML/{ruleName}")
     public String saveXML(@PathVariable String ruleName, @RequestBody String input) throws IOException {
         logger.info("saveXML   ======================================= " + input);
+        logger.info("rule_folder_path   ======================================= " + xml_folder_path);
         String filename = xml_folder_path + ruleName + ".xml";
+        logger.info("filename   ======================================= " + filename);
         FileUtil.fileLinesWrite(filename, input);
         return "OK";
     }
@@ -78,16 +87,16 @@ public class BlocklyController {
     }
 
     @PostMapping(value = "/executeRule/{ruleName}")
-    public String executeRule(@PathVariable String ruleName,@RequestBody String input) throws IOException {
+    public String executeRule(@PathVariable String ruleName, @RequestBody String input) throws IOException {
         logger.info("Running   ======================================= " + input);
         String filename = rule_folder_path + ruleName + ".av";
-        if(StringUtils.isEmpty(input)){
-            input="111";
+        if (StringUtils.isEmpty(input)) {
+            input = "111";
         }
         String userid = input;
         Map<String, Object> env = AviatorEvaluator.newEnv("userId", userid);
 
-        List<AbstractFunction> list= FunctionUtil.findAllFunctions();
+        List<AbstractFunction> list = FunctionUtil.findAllFunctions();
         for (AbstractFunction abstractFunction : list) {
             AviatorEvaluator.addFunction(abstractFunction);
         }
@@ -101,10 +110,6 @@ public class BlocklyController {
         String result = "运行结果为: " + tax;
         return result;
     }
-
-
-
-
 
 
 }

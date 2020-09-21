@@ -66,4 +66,10 @@ public class FileUtil {
         }
         return laststr;
     }
+
+    public static void main(String[] args) {
+        File directory = new File("");//参数为空
+        String author =directory.getAbsolutePath();
+        System.out.println(System.getProperty("user.dir"));
+    }
 }
