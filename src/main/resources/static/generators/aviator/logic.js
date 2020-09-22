@@ -129,9 +129,9 @@ Blockly.Aviator['logic_ternary'] = function (block) {
 };
 Blockly.Aviator['my_return'] = function (block) {
   // String or array length.
- var name= block.helpUrl
+  var name = block.helpUrl
   var return_data = Blockly.Aviator.valueToCode(block, 'VALUE',
-      Blockly.Aviator.ORDER_ASSIGNMENT) || '';
-  var code = [name+' '+return_data+';', Blockly.Aviator.ORDER_FUNCTION_CALL]
+    Blockly.Aviator.ORDER_ASSIGNMENT) || '0';
+  var code = [name + ' ' + return_data + ';\n', Blockly.Aviator.ORDER_FUNCTION_CALL]
   return code;
 };
