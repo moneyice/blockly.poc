@@ -444,7 +444,7 @@ Blockly.Variables.MyPromptName = function (promptText, defaultText, newVar, call
   // Beyond this, all names are legal.
   //此处 ----------------------------自行传入参数名-----------------------------
   for (var index = 0; index < newVar.length; index++) {
-    var element = newVar[index][0];
+    var element = newVar[index][1];
     if (element) {
       element = element.replace(/[\s\xa0]+/g, ' ').trim();
       if (element == Blockly.Msg['RENAME_VARIABLE'] ||

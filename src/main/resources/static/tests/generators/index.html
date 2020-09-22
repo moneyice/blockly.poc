@@ -130,7 +130,7 @@
     //带两个参数的函数  块样式配置
     Blockly.Blocks['my_function_2'] = {
       init: function () {
-        this.appendValueInput("NAME")
+        this.appendValueInput("FIRST")
           .setCheck(null)
           .appendField(new Blockly.FieldLabelSerializable("计算个人所得税"), "NAME");
         this.appendDummyInput();
@@ -289,7 +289,7 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: xmlText,
+        data: {data:JSON.stringify(xmlText)},
         dataType: 'text',
         success: function (data) {
           console.log('XML保存成功', data);
