@@ -1,0 +1,5 @@
+let monthSalary = annualMonthlyTaxableSalary() - annualAllowance() - annualSeriousIllnessTreatment() - annualMortgageInterest();
+if (monthSalary > 0) {
+  let personTax = calculateTax(monthSalary);
+  return personTax;}
+return 0;

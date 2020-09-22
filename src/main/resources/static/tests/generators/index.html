@@ -289,7 +289,7 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: {data:JSON.stringify(xmlText)},
+        data: {data:xmlText},
         dataType: 'text',
         success: function (data) {
           console.log('XML保存成功', data);
@@ -307,7 +307,7 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: code,
+        data: {data:code},
         dataType: 'text',
         success: function (data) {
 
@@ -326,7 +326,6 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: fileName,
         dataType: 'text',
         success: function (data) {
           fromXml('', data)
@@ -343,7 +342,6 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: fileName,
         dataType: 'text',
         success: function (data) {
           document.getElementById('executeRule').value = data;

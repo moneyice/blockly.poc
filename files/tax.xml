@@ -1,0 +1,96 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="X$=feP@tl.k?GT;qU`gw">monthSalary</variable>
+    <variable id="FxclC.xQzWr)G{g5=oL3">personTax</variable>
+  </variables>
+  <block type="variables_set" x="-312" y="138">
+    <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+    <value name="VALUE">
+      <block type="math_arithmetic">
+        <field name="OP">MINUS</field>
+        <value name="A">
+          <block type="math_arithmetic">
+            <field name="OP">MINUS</field>
+            <value name="A">
+              <block type="math_arithmetic">
+                <field name="OP">MINUS</field>
+                <value name="A">
+                  <block type="my_function">
+                    <field name="NAME">年度月薪计税工资</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="my_function">
+                    <field name="NAME">年度免税额</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="my_function">
+                <field name="NAME">年度大病医疗</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="B">
+          <block type="my_function">
+            <field name="NAME">年度房贷利息</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <next>
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">GT</field>
+            <value name="A">
+              <block type="variables_get">
+                <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set">
+            <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">personTax</field>
+            <value name="VALUE">
+              <block type="my_function_2">
+                <field name="NAME">计算个人所得税</field>
+                <value name="FIRST">
+                  <block type="variables_get">
+                    <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="my_return">
+                <value name="VALUE">
+                  <block type="variables_get">
+                    <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">personTax</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="my_return">
+            <value name="VALUE">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

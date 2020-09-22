@@ -52,11 +52,10 @@ public class BlocklyController {
 
 
     @PostMapping(value = "/saveScript/{ruleName}")
-    public String saveScript(@PathVariable String ruleName, @RequestBody String input) throws IOException {
-        logger.info("saveScript   ======================================= " + input);
-        logger.info("rule_folder_path   ======================================= " + rule_folder_path);
+    public String saveScript(@PathVariable String ruleName, String data) throws IOException {
+        logger.info("saveScript   ======================================= " + data);
         String filename = rule_folder_path + ruleName + ".av";
-        FileUtil.fileLinesWrite(filename, input);
+        FileUtil.fileLinesWrite(filename, data);
         return "OK";
     }
 
@@ -69,12 +68,11 @@ public class BlocklyController {
     }
 
     @PostMapping(value = "/saveXML/{ruleName}")
-    public String saveXML(@PathVariable String ruleName, @RequestBody String input) throws IOException {
-        logger.info("saveXML   ======================================= " + input);
-        logger.info("rule_folder_path   ======================================= " + xml_folder_path);
+    public String saveXML(@PathVariable String ruleName, String data) throws IOException {
+        logger.info("saveXML   ======================================= " + data);
         String filename = xml_folder_path + ruleName + ".xml";
         logger.info("filename   ======================================= " + filename);
-        FileUtil.fileLinesWrite(filename, input);
+        FileUtil.fileLinesWrite(filename, data);
         return "OK";
     }
 
@@ -87,13 +85,13 @@ public class BlocklyController {
     }
 
     @PostMapping(value = "/executeRule/{ruleName}")
-    public String executeRule(@PathVariable String ruleName, @RequestBody String input) throws IOException {
-        logger.info("Running   ======================================= " + input);
+    public String executeRule(@PathVariable String ruleName, String data) throws IOException {
+        logger.info("Running   ======================================= " + data);
         String filename = rule_folder_path + ruleName + ".av";
-        if (StringUtils.isEmpty(input)) {
-            input = "111";
+        if (StringUtils.isEmpty(data)) {
+            data = "111";
         }
-        String userid = input;
+        String userid = data;
         Map<String, Object> env = AviatorEvaluator.newEnv("userId", userid);
 
         List<AbstractFunction> list = FunctionUtil.findAllFunctions();

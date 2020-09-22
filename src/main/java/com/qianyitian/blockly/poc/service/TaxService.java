@@ -91,7 +91,6 @@ public class TaxService {
     for (int i = 0; i < taxRange.length; i++) {
       if (taxBase.compareTo(BigDecimal.valueOf(taxRange[i])) != 1) {
         taxRangeKey = String.valueOf(Double.valueOf(taxRange[i]).longValue());
-
         break;
       }
     }
