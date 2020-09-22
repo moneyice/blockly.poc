@@ -23,11 +23,11 @@ public class CalcuateTaxFunction extends AbstractFunction {
     /**
      * 税率
      *
-     * @param sum
+     * @param salaryBaseBD
      * @return
      */
     private BigDecimal calcuateTax(BigDecimal salaryBaseBD) {
-        double[] taxRate = 获取该计税基数的对应税率扣除数(salaryBaseBD);
+        double[] taxRate = taxRate(salaryBaseBD);
         BigDecimal currentTax = salaryBaseBD.multiply(BigDecimal.valueOf(taxRate[0]))
                 .subtract(BigDecimal.valueOf(taxRate[1]));
         return currentTax;
@@ -38,7 +38,7 @@ public class CalcuateTaxFunction extends AbstractFunction {
         return "calculateTax";
     }
 
-    public double[] 获取该计税基数的对应税率扣除数(BigDecimal taxBase) {
+    public double[] taxRate(BigDecimal taxBase) {
         String taxRangeKey = null;
         for (int i = 0; i < taxRange.length; i++) {
             if (taxBase.compareTo(BigDecimal.valueOf(taxRange[i])) != 1) {
