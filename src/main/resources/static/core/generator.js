@@ -132,9 +132,9 @@ Blockly.Generator.prototype.workspaceToCode = function (workspace) {
  * @param {string} prefix The common prefix.
  * @return {string} The prefixed lines of code.
  */
-Blockly.Generator.prototype.prefixLines = function (text, prefix) {
-  return prefix + text.replace(/(?!\n$)\n/g, '\n' + prefix);
-};
+// Blockly.Generator.prototype.prefixLines = function (text, prefix) {
+//   return prefix + text.replace(/(?!\n$)\n/g, '\n' + prefix);
+// };
 
 /**
  * Recursively spider a tree of blocks, returning all their comments.
@@ -296,13 +296,13 @@ Blockly.Generator.prototype.statementToCode = function (block, name) {
   var code = this.blockToCode(targetBlock);
   // Value blocks must return code and order of operations info.
   // Statement blocks must only return code.
-  if (typeof code != 'string') {
-    throw TypeError('Expecting code from statement block: ' +
-      (targetBlock && targetBlock.type));
-  }
-  if (code) {
-    code = this.prefixLines(/** @type {string} */(code), this.INDENT);
-  }
+  // if (typeof code != 'string') {
+  //   throw TypeError('Expecting code from statement block: ' +
+  //     (targetBlock && targetBlock.type));
+  // }
+  // if (code) {
+  //   code = this.prefixLines(/** @type {string} */(code), this.INDENT);
+  // }
   return code;
 };
 
