@@ -3,6 +3,6 @@ function getFuncData() {
     return funcData;
 };
 function getVariablesData() {
-    var variablesData = [['工资标准', 'salaryStandard'], ['执行系数', 'factor'], ['本月工资', 'monthSalary']];
+    var variablesData = [['工资标准', 'salaryStandard'], ['执行系数', 'factor'], ['本月工资', 'monthSalary'],['计税基数','taxBase'],['应纳个人所得税','personalTaxPayable']];
     return variablesData;
 };

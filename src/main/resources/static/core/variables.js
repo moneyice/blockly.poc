@@ -444,9 +444,9 @@ Blockly.Variables.MyPromptName = function (promptText, defaultText, newVar, call
   // Beyond this, all names are legal.
   //此处 ----------------------------自行传入参数名-----------------------------
   for (var index = 0; index < newVar.length; index++) {
-    var element = newVar[index][1];
+    var element = newVar[index][0];
     if (element) {
-      element = element.replace(/[\s\xa0]+/g, ' ').trim();
+      element.trim();
       if (element == Blockly.Msg['RENAME_VARIABLE'] ||
         element == Blockly.Msg['NEW_VARIABLE']) {
         // Ok, not ALL names are legal...
@@ -493,7 +493,6 @@ Blockly.Variables.nameUsedWithOtherType_ = function (name, type, workspace) {
  */
 Blockly.Variables.nameUsedWithAnyType = function (name, workspace) {
   var allVariables = workspace.getVariableMap().getAllVariables();
-
   name = name.toLowerCase();
   for (var i = 0, variable; (variable = allVariables[i]); i++) {
     if (variable.name.toLowerCase() == name) {

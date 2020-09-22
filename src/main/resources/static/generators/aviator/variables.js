@@ -21,17 +21,27 @@ Blockly.Aviator['variables_get'] = function (block) {
   // Variable getter.
   var variablesName = Blockly.Aviator.variableDB_.getName(block.getFieldValue('VAR'),
     Blockly.VARIABLE_CATEGORY_NAME);
-    console.log(variablesName);
+  for (let i = 0; i < VariablesData.length; i++) {
+    if (variablesName == VariablesData[i][0]) {
+      variablesName = VariablesData[i][1];
+    };
+  };
   return [variablesName, Blockly.Aviator.ORDER_ATOMIC];
 };
 
 
 Blockly.Aviator['variables_set'] = function (block) {
   // Variable setter.
+
   var argument0 = Blockly.Aviator.valueToCode(block, 'VALUE',
     Blockly.Aviator.ORDER_ASSIGNMENT) || '0';
-  var varName = Blockly.Aviator.variableDB_.getName(
+  var variablesName = Blockly.Aviator.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-  return 'let ' + varName + ' = ' + argument0 + ';\n';
+  for (let i = 0; i < VariablesData.length; i++) {
+    if (variablesName == VariablesData[i][0]) {
+      variablesName = VariablesData[i][1];
+    };
+  };
+  return 'let ' + variablesName + ' = ' + argument0 + ';\n';
 };
 
