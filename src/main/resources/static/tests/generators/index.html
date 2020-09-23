@@ -17,6 +17,7 @@
   <script src="../../generators/aviator/my.js"></script>
   <script src="./jquery-3.4.1.js"></script>
   <script src="./zh-hans.js"></script>
+  <script src="./PinYin.js"></script>
 
   <script src="../../msg/messages.js"></script>
   <script src="../../blocks/logic.js"></script>
@@ -43,12 +44,7 @@
           toolbox: document.getElementById('toolbox'),
           zoom: { controls: true, wheel: true }
         });
-      // changeIndex();
-      // for (var messageKey in MSG) {
-      //   if (messageKey.indexOf('cat') == 0) {
-      //     Blockly.Msg[messageKey.toUpperCase()] = MSG[messageKey];
-      //   }
-      // }
+
       var workspace = Blockly.getMainWorkspace();
       //-------------------------声明参数传入-----------------------
       var newVar = getVariablesData();
@@ -59,48 +55,51 @@
           Blockly.Variables.createVariableButtonHandlerMY(workspace, newVar);
         }
       })
-
-      demoWorkspace.myFlyoutCallback = function (workspace) {
-        // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
-        var funcData = getFuncData();
+      var funcData = getFuncData();
+      demoWorkspace.mySALARYFlyoutCallback = function (workspace) {
+        var myfolder = funcData.folder_salary;
         var xmlList = [];
-        for (let index = 0; index < funcData.length; index++) {
-          if (funcData[index][0] == 'myfunction') {
+        for (let index = 0; index < myfolder.length; index++) {
+          if (myfolder[index][0] == 'myfunction') {
             var blockText = '<block type="my_function">' +
-              '<field name="NAME">' + funcData[index][2] + '</field>' +
+              '<field name="NAME">' + myfolder[index][2] + '</field>' +
               '</block>';
             var block = Blockly.Xml.textToDom(blockText);
             xmlList.push(block);
-
-          } else if (funcData[index][0] == 'myfunction_2') {
-            var blockText = '<block type="my_function_2">' +
-              '<field name="NAME">' + funcData[index][2] + '</field>' +
+          } else if (myfolder[index][0] == 'myfunction_1') {
+            var blockText = '<block type="my_function_1">' +
+              '<field name="NAME">' + myfolder[index][2] + '</field>' +
               '</block>';
             var block = Blockly.Xml.textToDom(blockText);
             xmlList.push(block);
-
           }
-
         }
-        // if (Blockly.Blocks['my_function']) {
-        //   for (var i = 0; i < colourList.length; i++) {
-        //     var blockText = '<block type="my_function">' +
-        //       '<field name="NAME">' + colourList[i][1] + '</field>' +
-        //       '</block>';
-        //     var block = Blockly.Xml.textToDom(blockText);
-        //     xmlList.push(block);
-        //   }
-        // } else if (Blockly.Blocks['my_functionv']) {
-        //   var blockText = '<block type="my_functionv">' +
-        //     '<field name="NAME">' + 'rate' + '</field>' +
-        //     '</block>';
-        //   var block = Blockly.Xml.textToDom(blockText);
-        //   xmlList.push(block);
-        // }
+        return xmlList;
+      };
+      demoWorkspace.myTAXFlyoutCallback = function (workspace) {
+        var myfolder = funcData.folder_tax;
+        var xmlList = [];
+        for (let index = 0; index < myfolder.length; index++) {
+          if (myfolder[index][0] == 'myfunction') {
+            var blockText = '<block type="my_function">' +
+              '<field name="NAME">' + myfolder[index][2] + '</field>' +
+              '</block>';
+            var block = Blockly.Xml.textToDom(blockText);
+            xmlList.push(block);
+          } else if (myfolder[index][0] == 'myfunction_1') {
+            var blockText = '<block type="my_function_1">' +
+              '<field name="NAME">' + myfolder[index][2] + '</field>' +
+              '</block>';
+            var block = Blockly.Xml.textToDom(blockText);
+            xmlList.push(block);
+          }
+        }
         return xmlList;
       };
       workspace.registerToolboxCategoryCallback(
-        'MY', demoWorkspace.myFlyoutCallback);
+        'SALARY', demoWorkspace.mySALARYFlyoutCallback);
+      workspace.registerToolboxCategoryCallback(
+        'TAX', demoWorkspace.myTAXFlyoutCallback);
     }
     ////设置my 自定义块
     Blockly.Blocks['my_return'] = {
@@ -128,16 +127,16 @@
       }
     }
     //带两个参数的函数  块样式配置
-    Blockly.Blocks['my_function_2'] = {
+    Blockly.Blocks['my_function_1'] = {
       init: function () {
         this.appendValueInput("FIRST")
           .setCheck(null)
-          .appendField(new Blockly.FieldLabelSerializable("计算个人所得税"), "NAME");
+          .appendField(new Blockly.FieldLabelSerializable(""), "NAME");
         this.appendDummyInput();
         this.setOutput(true, null);
         this.setColour(130);
         this.setTooltip("");
-        this.setHelpUrl("calculateTax");
+        this.setHelpUrl("");
       }
     };
 
@@ -269,7 +268,6 @@
       outputCode = code;
     }
 
-
     function Save() {
       var fileName = document.getElementById('fileName').value
       if (fileName == '') {
@@ -289,7 +287,7 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: {data:xmlText},
+        data: { data: xmlText },
         dataType: 'text',
         success: function (data) {
           console.log('XML保存成功', data);
@@ -307,7 +305,7 @@
       $.ajax({
         url: url,
         type: 'post',
-        data: {data:code},
+        data: { data: code },
         dataType: 'text',
         success: function (data) {
 
@@ -428,7 +426,14 @@
     <sep></sep>
     <category name="%{BKY_CATVARIABLES}" colour="330" custom="VARIABLE"></category>
     <category name="%{BKY_CATFUNCTIONS}" colour="290" custom="PROCEDURE"></category>
-    <category name="%{BKY_CATMY}" colour="230" custom="MY">
+    </category>
+    <category name="%{BKY_CATMY}" colour="20">
+      <category name="工资" colour="20" custom="SALARY">
+
+      </category>
+      <category name="税率" colour="20" custom="TAX">
+
+      </category>
     </category>
   </xml>
   <table height="95%" width="30%">

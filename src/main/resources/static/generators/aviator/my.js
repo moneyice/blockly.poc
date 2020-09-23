@@ -15,9 +15,9 @@ goog.provide('Blockly.Aviator.mys');
 goog.require('Blockly.Aviator');
 
 
-var funclist = getFuncData();
-// [['myfunction', 'getMonthPerformSalaryStandard', '标准工资'], ['myfunction', 'getMonthPerformFactor', '执行系数'], ['myfunctionv', 'rate', '税率']];
-var funclists = []
+var data = getFuncData();
+var funclist = data.folder_salary.concat(data.folder_tax);
+var funclists = [];
 for (var index = 0; index < funclist.length; index++) {
   if (funclist[index][0] == 'myfunction') {
     funclists.push(funclist[index])
@@ -37,9 +37,21 @@ Blockly.Aviator['my_function'] = function (block) {
   return code;
 };
 
-Blockly.Aviator['my_function_2'] = function (block) {
+var funclists_1 = [];
+for (var index = 0; index < funclist.length; index++) {
+  if (funclist[index][0] == 'myfunction_1') {
+    funclists_1.push(funclist[index])
+  }
+}
+
+Blockly.Aviator['my_function_1'] = function (block) {
   // Define a procedure with a return value.
-  var funcName = block.helpUrl
+  var funcName = block.getFieldValue('NAME')
+  for (var i = 0; i < funclists_1.length; i++) {
+    if (funcName == funclists_1[i][2]) {
+      funcName = funclists_1[i][1]
+    }
+  }
   var argument0 = Blockly.Aviator.valueToCode(block, 'FIRST',
     Blockly.Aviator.ORDER_MODULUS) || '0';
   var code = [funcName + '(' + argument0 + ')', Blockly.Aviator.ORDER_FUNCTION_CALL]
