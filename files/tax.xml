@@ -15,27 +15,37 @@
               <block type="math_arithmetic">
                 <field name="OP">MINUS</field>
                 <value name="A">
-                  <block type="my_function">
-                    <field name="NAME">年度月薪计税工资</field>
+                  <block type="math_arithmetic">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <block type="my_function">
+                        <field name="NAME">年度月薪计税工资</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="my_function">
+                        <field name="NAME">年度免税额</field>
+                      </block>
+                    </value>
                   </block>
                 </value>
                 <value name="B">
                   <block type="my_function">
-                    <field name="NAME">年度免税额</field>
+                    <field name="NAME">年度大病医疗</field>
                   </block>
                 </value>
               </block>
             </value>
             <value name="B">
               <block type="my_function">
-                <field name="NAME">年度大病医疗</field>
+                <field name="NAME">年度房贷利息</field>
               </block>
             </value>
           </block>
         </value>
         <value name="B">
           <block type="my_function">
-            <field name="NAME">年度房贷利息</field>
+            <field name="NAME">年度专项扣减调整</field>
           </block>
         </value>
       </block>

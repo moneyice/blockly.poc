@@ -21,7 +21,7 @@ public class CalcuateTaxFunction extends AbstractFunction {
     }
 
     /**
-     * 税率
+     * 计算个人所得税
      *
      * @param salaryBaseBD
      * @return

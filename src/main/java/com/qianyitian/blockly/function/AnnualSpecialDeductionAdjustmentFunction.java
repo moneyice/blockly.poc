@@ -25,7 +25,7 @@ public class AnnualSpecialDeductionAdjustmentFunction extends AbstractFunction {
      */
     private BigDecimal annualSpecialDeductionAdjustment(String userId) {
         if ("111".equals(userId)) {
-            return BigDecimal.valueOf(0);
+            return BigDecimal.valueOf(11);
         } else {
             return BigDecimal.valueOf(0);
         }
