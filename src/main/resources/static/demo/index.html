@@ -30,6 +30,9 @@
     var demoWorkspace = null;
     var outputCode = '';
     var URI = 'http://localhost:8080/';
+
+    //获得变量作为参数传入 生成自定义参数
+    var newVar = getVariablesData();
     function start() {
       demoWorkspace = Blockly.inject('blocklyDiv',
         {
@@ -44,10 +47,7 @@
           toolbox: document.getElementById('toolbox'),
           zoom: { controls: true, wheel: true }
         });
-
       var workspace = Blockly.getMainWorkspace();
-      //-------------------------声明参数传入-----------------------
-      var newVar = getVariablesData();
       var isClick = false;
       $('#blockly-5').click(() => {
         if (isClick) { } else {
