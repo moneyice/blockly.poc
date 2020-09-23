@@ -4,27 +4,27 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly Generator Tests</title>
-  <script src="../../blockly_uncompressed.js"></script>
+  <script src="../blockly_uncompressed.js"></script>
 
   <!-- Home_Unit_test -->
-  <script src='./getMyData.js'></script>
-  <script src="../../generators/aviator.js"></script>
-  <script src="../../generators/aviator/logic.js"></script>
-  <script src="../../generators/aviator/math.js"></script>
-  <script src="../../generators/aviator/text.js"></script>
-  <script src="../../generators/aviator/variables.js"></script>
-  <script src="../../generators/aviator/procedures.js"></script>
-  <script src="../../generators/aviator/my.js"></script>
+  <script src='./function-metadata.js'></script>
+  <script src="../generators/aviator.js"></script>
+  <script src="../generators/aviator/logic.js"></script>
+  <script src="../generators/aviator/math.js"></script>
+  <script src="../generators/aviator/text.js"></script>
+  <script src="../generators/aviator/variables.js"></script>
+  <script src="../generators/aviator/procedures.js"></script>
+  <script src="../generators/aviator/my.js"></script>
   <script src="./jquery-3.4.1.js"></script>
   <script src="./zh-hans.js"></script>
   <script src="./PinYin.js"></script>
 
-  <script src="../../msg/messages.js"></script>
-  <script src="../../blocks/logic.js"></script>
-  <script src="../../blocks/math.js"></script>
-  <script src="../../blocks/text.js"></script>
-  <script src="../../blocks/variables.js"></script>
-  <script src="../../blocks/procedures.js"></script>
+  <script src="../msg/messages.js"></script>
+  <script src="../blocks/logic.js"></script>
+  <script src="../blocks/math.js"></script>
+  <script src="../blocks/text.js"></script>
+  <script src="../blocks/variables.js"></script>
+  <script src="../blocks/procedures.js"></script>
   <script>
     'use strict';
     var demoWorkspace = null;
@@ -40,7 +40,7 @@
             colour: '#ccc',
             snap: true
           },
-          media: '../../media/',
+          media: '../media/',
           toolbox: document.getElementById('toolbox'),
           zoom: { controls: true, wheel: true }
         });
@@ -139,58 +139,7 @@
         this.setHelpUrl("");
       }
     };
-
-    /**
-     * Run this test to load all of the tests in the selected suites.  The contents
-     * will be loaded into the workspace in order.  To test the generators:
-     * - select your language from the buttons above the text area
-     * - copy all of the generated code
-     * - run it in an interpreter of your choice
-     * - scan all of the results for "FAIL".  All test suites are running in order,
-     *      and each will report OK or FAIL based only on the tests in that suite.
-     * If some tests are failing, load test suites individually to continue
-     * debugging.
-     */
-    function loadSelected() {
-      var output = document.getElementById('importExport');
-      output.style.background = 'gray';
-
-      var loadingElem = document.getElementById('loading');
-      loadingElem.textContent = 'loading...';
-
-      // Clear before adding all of the blocks.
-      demoWorkspace.clear();
-
-      var boxList = document.getElementsByClassName('suite_checkbox');
-      for (var i = 0; i < boxList.length; i++) {
-        if (boxList[i].checked) {
-          var testUrl = boxList[i].value;
-          if (testUrl) {
-            var xmlText = fetchFile(testUrl);
-            if (xmlText !== null) {
-              fromXml(testUrl, xmlText, /* opt_append */ true);
-            }
-          }
-        }
-      }
-      output.style.background = '';
-      loadingElem.textContent = 'done';
-    }
-
-    /**
-     * Ask the user for a file name, then load that file's contents.
-     */
-    function loadOther() {
-      var url = window.prompt('Enter URL of test file.');
-      if (!url) {
-        return;
-      }
-      var xmlText = fetchFile(url);
-      if (xmlText !== null) {
-        fromXml(url, xmlText);
-      }
-    }
-
+    // demoWorkspace.clear();
     function fetchFile(xmlUrl) {
       try {
         var xmlHttp = new XMLHttpRequest();
@@ -211,12 +160,6 @@
       return xmlHttp.responseText;
     }
 
-    /**
-     * @param {string} filename The URL (or other name) of the XML, for reporting.
-     * @param {string} xmlText The actual XML text.
-     * @param {boolean=} opt_append True if the XML should be appended to the
-     *     workspace.  Otherwise the workspace is cleared and the new XML is loaded.
-     */
     function fromXml(filename, xmlText, opt_append) {
       var output = document.getElementById('importExport');
       output.value = xmlText;
@@ -259,6 +202,7 @@
 
       setOutput(xmlText);
     }
+
     function toAviator() {
       //js启用严格模式  
       // var code = '\'use strict\';\n\n'
@@ -429,10 +373,8 @@
     </category>
     <category name="%{BKY_CATMY}" colour="20">
       <category name="工资" colour="20" custom="SALARY">
-
       </category>
       <category name="税率" colour="20" custom="TAX">
-
       </category>
     </category>
   </xml>
