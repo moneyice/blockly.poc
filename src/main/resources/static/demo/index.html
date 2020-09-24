@@ -263,6 +263,10 @@
     }
     function LoadXml() {
       var fileName = document.getElementById('fileName').value
+      if (fileName == '') {
+        window.alert('请输入要加载的文件名')
+        return
+      }
       var url = URI + 'loadXML/' + fileName;
       $.ajax({
         url: url,
@@ -291,6 +295,9 @@
           console.log(error)
         }
       })
+    }
+    function SaveA() {
+      console.log('保存成功');
     }
   </script>
 
@@ -412,6 +419,8 @@
             <li>假期规则</li>
           </ul>
         </div>
+        <button style="float: right;position: relative; margin-top: -100px; margin-right: 20px;"
+          onclick="SaveA()">Save</button>
       </td>
     </tr>
     <tr>
