@@ -19,6 +19,6 @@ function getFuncData() {
     return data;
 };
 function getVariablesData() {
-    var variablesData = [['工资标准', 'salaryStandard'], ['执行系数', 'factor'], ['本月工资', 'monthSalary'], ['计税基数', 'taxBase'], ['应纳个人所得税', 'personalTaxPayable']];
+    var variablesData = [['工资标准', 'salaryStandard'], ['执行系数', 'factor'], ['本月工资', 'monthSalary'], ['计税基数', 'taxBase'], ['应纳个人所得税', 'personalTaxPayable'], ['工资个人所得税', 'personalTaxOnWages']];
     return variablesData;
 };
