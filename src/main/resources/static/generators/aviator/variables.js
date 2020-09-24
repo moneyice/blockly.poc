@@ -65,4 +65,3 @@ Blockly.Aviator['variables_set'] = function (block) {
   // variablesName = pinyin.getFullChars(variablesName);
   return variablesName + ' = ' + argument0 + ';\n';
 };
-

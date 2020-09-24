@@ -71,7 +71,7 @@
           <block type="variables_set">
             <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">personTax</field>
             <value name="VALUE">
-              <block type="my_function_2">
+              <block type="my_function_1">
                 <field name="NAME">计算个人所得税</field>
                 <value name="FIRST">
                   <block type="variables_get">

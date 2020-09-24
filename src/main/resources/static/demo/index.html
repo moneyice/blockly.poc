@@ -6,7 +6,6 @@
   <title>Blockly Generator Tests</title>
   <script src="../blockly_uncompressed.js"></script>
 
-  <!-- Home_Unit_test -->
   <script src='./function-metadata.js'></script>
   <script src="../generators/aviator.js"></script>
   <script src="../generators/aviator/logic.js"></script>
@@ -126,7 +125,7 @@
         this.setHelpUrl('');
       }
     }
-    //带两个参数的函数  块样式配置
+    //带一个参数的函数  块样式配置
     Blockly.Blocks['my_function_1'] = {
       init: function () {
         this.appendValueInput("FIRST")
@@ -313,6 +312,10 @@
       font-size: 140%;
     }
 
+    .tab li:hover {
+      background-color: #ccc;
+    }
+
     #blocklyDiv {
       float: right;
       height: 95%;
@@ -398,7 +401,21 @@
       </td>
     </tr>
     <tr>
-      <td height="50%">
+      <td height="20%">
+        <div style="border: 1px solid; height: 100px; overflow-y:scroll;overflow-x:hidden;width: 80%;">
+          <ul class='tab' style='list-style: none;width: 100%;height: 100%; padding-left: 0;margin: 0 auto;'>
+            <li>工资规则</li>
+            <li>计税规则</li>
+            <li>假期规则</li>
+            <li>工资规则</li>
+            <li>计税规则</li>
+            <li>假期规则</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td height="40%">
         <textarea id="importExport" wrap="on"></textarea>
       </td>
     </tr>
@@ -408,7 +425,7 @@
       </td>
     </tr>
     <tr>
-      <td height="20%">
+      <td height="10%">
         <textarea id="executeRule" wrap="off" style="height: 100%;width: 100%;"></textarea>
       </td>
     </tr>
