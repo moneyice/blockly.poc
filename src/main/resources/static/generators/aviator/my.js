@@ -14,42 +14,49 @@ goog.provide('Blockly.Aviator.mys');
 
 goog.require('Blockly.Aviator');
 
-
 var data = getFuncData();
-var funclist = data.folder_salary.concat(data.folder_tax);
+var funclist = data[0].allData.concat(data[1].allData);
 var funclists = [];
-for (var index = 0; index < funclist.length; index++) {
-  if (funclist[index][0] == 'myfunction') {
-    funclists.push(funclist[index])
-  }
-}
-
-Blockly.Aviator['my_function'] = function (block) {
-  // Define a procedure with a return value.
-  var funcName = block.getFieldValue('NAME')
-  for (var i = 0; i < funclists.length; i++) {
-    if (funcName == funclists[i][2]) {
-      funcName = funclists[i][1]
-    }
-  }
-
-  var code = [funcName + '()', Blockly.Aviator.ORDER_FUNCTION_CALL]
-  return code;
-};
-
 var funclists_1 = [];
 for (var index = 0; index < funclist.length; index++) {
-  if (funclist[index][0] == 'myfunction_1') {
+  if (funclist[index].paramNum == '0') {
+    funclists.push(funclist[index])
+  } else if (funclist[index].paramNum == '1') {
     funclists_1.push(funclist[index])
   }
 }
+//不带参数的处理模块
+Blockly.Aviator['my_function'] = function (block) {
+  var funcName = block.getFieldValue('NAME')
+  var code;
+  for (var i = 0; i < funclists.length + 1; i++) {
+    if (funcName == funclists[i].name && funclists[i].customFlag == 'N') {
+      funcName = funclists[i].code;
+      code = [funcName + '()', Blockly.Aviator.ORDER_FUNCTION_CALL];
+      break;
+    } else if (funcName == funclists[i].name && funclists[i].customFlag == 'Y') {
+      var param1 = funclists[i].code;
+      var param2 = funclists[i].defaultType;
+      var param3 = funclists[i].orgId;
+      code = ['customFunction' + '(' + param1 + ',' + param2 + ',' + param3 + ')', Blockly.Aviator.ORDER_FUNCTION_CALL];
+      break;
+    } else if (funcName == funclists[i].name && funclists[i].customFlag == 'subject') {
+      var param1 = funclists[i].code;
+      var param2 = funclists[i].effecttiveDate;
+      code = ['subjectFunction' + '(' + param1 + ',' + param2 + ')', Blockly.Aviator.ORDER_FUNCTION_CALL];
+      break;
+    }
+  }
+  return code;
+};
 
+//带1个参数的处理模块
 Blockly.Aviator['my_function_1'] = function (block) {
   // Define a procedure with a return value.
   var funcName = block.getFieldValue('NAME')
   for (var i = 0; i < funclists_1.length; i++) {
-    if (funcName == funclists_1[i][2]) {
-      funcName = funclists_1[i][1]
+    if (funcName == funclists_1[i].name) {
+      funcName = funclists_1[i].code;
     }
   }
   var argument0 = Blockly.Aviator.valueToCode(block, 'FIRST',

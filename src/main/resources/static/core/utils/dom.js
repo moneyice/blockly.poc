@@ -79,9 +79,9 @@ Blockly.utils.dom.canvasContext_ = null;
  * @param {Element=} opt_parent Optional parent on which to append the element.
  * @return {!SVGElement} Newly created SVG element.
  */
-Blockly.utils.dom.createSvgElement = function(name, attrs, opt_parent) {
+Blockly.utils.dom.createSvgElement = function (name, attrs, opt_parent) {
   var e = /** @type {!SVGElement} */
-      (document.createElementNS(Blockly.utils.dom.SVG_NS, name));
+    (document.createElementNS(Blockly.utils.dom.SVG_NS, name));
   for (var key in attrs) {
     e.setAttribute(key, attrs[key]);
   }
@@ -104,7 +104,7 @@ Blockly.utils.dom.createSvgElement = function(name, attrs, opt_parent) {
  * @param {string} className Name of class to add.
  * @return {boolean} True if class was added, false if already present.
  */
-Blockly.utils.dom.addClass = function(element, className) {
+Blockly.utils.dom.addClass = function (element, className) {
   var classes = element.getAttribute('class') || '';
   if ((' ' + classes + ' ').indexOf(' ' + className + ' ') != -1) {
     return false;
@@ -123,7 +123,7 @@ Blockly.utils.dom.addClass = function(element, className) {
  * @param {string} className Name of class to remove.
  * @return {boolean} True if class was removed, false if never present.
  */
-Blockly.utils.dom.removeClass = function(element, className) {
+Blockly.utils.dom.removeClass = function (element, className) {
   var classes = element.getAttribute('class');
   if ((' ' + classes + ' ').indexOf(' ' + className + ' ') == -1) {
     return false;
@@ -150,7 +150,7 @@ Blockly.utils.dom.removeClass = function(element, className) {
  * @param {string} className Name of class to check.
  * @return {boolean} True if class exists, false otherwise.
  */
-Blockly.utils.dom.hasClass = function(element, className) {
+Blockly.utils.dom.hasClass = function (element, className) {
   var classes = element.getAttribute('class');
   return (' ' + classes + ' ').indexOf(' ' + className + ' ') != -1;
 };
@@ -161,7 +161,7 @@ Blockly.utils.dom.hasClass = function(element, className) {
  * @return {Node} The node removed if removed; else, null.
  */
 // Copied from Closure goog.dom.removeNode
-Blockly.utils.dom.removeNode = function(node) {
+Blockly.utils.dom.removeNode = function (node) {
   return node && node.parentNode ? node.parentNode.removeChild(node) : null;
 };
 
@@ -171,7 +171,7 @@ Blockly.utils.dom.removeNode = function(node) {
  * @param {!Element} newNode New element to insert.
  * @param {!Element} refNode Existing element to precede new node.
  */
-Blockly.utils.dom.insertAfter = function(newNode, refNode) {
+Blockly.utils.dom.insertAfter = function (newNode, refNode) {
   var siblingNode = refNode.nextSibling;
   var parentNode = refNode.parentNode;
   if (!parentNode) {
@@ -190,9 +190,9 @@ Blockly.utils.dom.insertAfter = function(newNode, refNode) {
  * @param {!Node} descendant The node to test presence of.
  * @return {boolean} Whether the parent node contains the descendant node.
  */
-Blockly.utils.dom.containsNode = function(parent, descendant) {
+Blockly.utils.dom.containsNode = function (parent, descendant) {
   return !!(parent.compareDocumentPosition(descendant) &
-            Blockly.utils.dom.NodeType.DOCUMENT_POSITION_CONTAINED_BY);
+    Blockly.utils.dom.NodeType.DOCUMENT_POSITION_CONTAINED_BY);
 };
 
 /**
@@ -202,7 +202,7 @@ Blockly.utils.dom.containsNode = function(parent, descendant) {
  * @param {!Element} element Element to which the CSS transform will be applied.
  * @param {string} transform The value of the CSS `transform` property.
  */
-Blockly.utils.dom.setCssTransform = function(element, transform) {
+Blockly.utils.dom.setCssTransform = function (element, transform) {
   element.style['transform'] = transform;
   element.style['-webkit-transform'] = transform;
 };
@@ -211,7 +211,7 @@ Blockly.utils.dom.setCssTransform = function(element, transform) {
  * Start caching text widths. Every call to this function MUST also call
  * stopTextWidthCache. Caches must not survive between execution threads.
  */
-Blockly.utils.dom.startTextWidthCache = function() {
+Blockly.utils.dom.startTextWidthCache = function () {
   Blockly.utils.dom.cacheReference_++;
   if (!Blockly.utils.dom.cacheWidths_) {
     Blockly.utils.dom.cacheWidths_ = {};
@@ -222,7 +222,7 @@ Blockly.utils.dom.startTextWidthCache = function() {
  * Stop caching field widths. Unless caching was already on when the
  * corresponding call to startTextWidthCache was made.
  */
-Blockly.utils.dom.stopTextWidthCache = function() {
+Blockly.utils.dom.stopTextWidthCache = function () {
   Blockly.utils.dom.cacheReference_--;
   if (!Blockly.utils.dom.cacheReference_) {
     Blockly.utils.dom.cacheWidths_ = null;
@@ -234,7 +234,7 @@ Blockly.utils.dom.stopTextWidthCache = function() {
  * @param {!Element} textElement An SVG 'text' element.
  * @return {number} Width of element.
  */
-Blockly.utils.dom.getTextWidth = function(textElement) {
+Blockly.utils.dom.getTextWidth = function (textElement) {
   var key = textElement.textContent + '\n' + textElement.className.baseVal;
   var width;
 
@@ -278,10 +278,10 @@ Blockly.utils.dom.getTextWidth = function(textElement) {
  * @param {string} fontFamily The font family to use.
  * @return {number} Width of element.
  */
-Blockly.utils.dom.getFastTextWidth = function(textElement,
-    fontSize, fontWeight, fontFamily) {
+Blockly.utils.dom.getFastTextWidth = function (textElement,
+  fontSize, fontWeight, fontFamily) {
   return Blockly.utils.dom.getFastTextWidthWithSizeString(textElement,
-      fontSize + 'pt', fontWeight, fontFamily);
+    fontSize + 'pt', fontWeight, fontFamily);
 };
 
 /**
@@ -296,8 +296,8 @@ Blockly.utils.dom.getFastTextWidth = function(textElement,
  * @param {string} fontFamily The font family to use.
  * @return {number} Width of element.
  */
-Blockly.utils.dom.getFastTextWidthWithSizeString = function(textElement,
-    fontSize, fontWeight, fontFamily) {
+Blockly.utils.dom.getFastTextWidthWithSizeString = function (textElement,
+  fontSize, fontWeight, fontFamily) {
   var text = textElement.textContent;
   var key = text + '\n' + textElement.className.baseVal;
   var width;
@@ -323,7 +323,7 @@ Blockly.utils.dom.getFastTextWidthWithSizeString = function(textElement,
   }
   // Set the desired font size and family.
   Blockly.utils.dom.canvasContext_.font =
-      fontWeight + ' ' + fontSize + ' ' + fontFamily;
+    fontWeight + ' ' + fontSize + ' ' + fontFamily;
 
   // Measure the text width using the helper canvas context.
   width = Blockly.utils.dom.canvasContext_.measureText(text).width;
@@ -343,8 +343,8 @@ Blockly.utils.dom.getFastTextWidthWithSizeString = function(textElement,
  * @param {string} fontFamily The font family to use.
  * @return {{height: number, baseline: number}} Font measurements.
  */
-Blockly.utils.dom.measureFontMetrics = function(text, fontSize, fontWeight,
-    fontFamily) {
+Blockly.utils.dom.measureFontMetrics = function (text, fontSize, fontWeight,
+  fontFamily) {
 
   var span = document.createElement('span');
   span.style.font = fontWeight + ' ' + fontSize + ' ' + fontFamily;

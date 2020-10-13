@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 /**
  * @license
  * Copyright 2011 Google LLC
@@ -147,11 +147,11 @@ Blockly.svgResize = function (workspace) {
   var width = div.offsetWidth;
   var height = div.offsetHeight;
   if (svg.cachedWidth_ != width) {
-    svg.setAttribute('width', width + 'px');
+    svg.setAttribute('width', '100%');
     svg.cachedWidth_ = width;
   }
   if (svg.cachedHeight_ != height) {
-    svg.setAttribute('height', height + 'px');
+    svg.setAttribute('height', '100%');
     svg.cachedHeight_ = height;
   }
   mainWorkspace.resize();

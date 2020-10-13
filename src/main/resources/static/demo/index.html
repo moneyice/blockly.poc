@@ -16,6 +16,8 @@
   <script src="./jquery-3.4.1.js"></script>
   <script src="./zh-hans.js"></script>
   <script src="./PinYin.js"></script>
+  <script src="./canvas2image.js"></script>
+  <script src="./html2canvas.min.js"></script>
 
   <script src="../msg/messages.js"></script>
   <script src="../blocks/logic.js"></script>
@@ -29,10 +31,17 @@
     var outputCode = '';
     var fileName = '';
     var URI = 'http://localhost:8080/';
-
-    //获得变量作为参数传入 生成自定义参数
-    var newVar = getVariablesData();
     function start() {
+      //页面初始化前加入分组结构
+      var funcData = getFuncData();
+      console.log(funcData);
+      for (let i = 0; i < funcData.length; i++) {
+        var newCategory = document.createElement('category')
+        newCategory.setAttribute('name', funcData[i].group)
+        newCategory.setAttribute('colour', '190')
+        newCategory.setAttribute('custom', funcData[i].group)
+        $('#toolbox')[0].append(newCategory)
+      }
       demoWorkspace = Blockly.inject('blocklyDiv',
         {
           grid:
@@ -47,58 +56,31 @@
           zoom: { controls: true, wheel: true }
         });
       var workspace = Blockly.getMainWorkspace();
-      var isClick = false;
-      $('#blockly-5').click(() => {
-        if (isClick) { } else {
-          isClick = true;
-          Blockly.Variables.createVariableButtonHandlerMY(workspace, newVar);
-        }
-      })
-      var funcData = getFuncData();
-      demoWorkspace.mySALARYFlyoutCallback = function (workspace) {
-        var myfolder = funcData.folder_salary;
-        var xmlList = [];
-        for (let index = 0; index < myfolder.length; index++) {
-          if (myfolder[index][0] == 'myfunction') {
-            var blockText = '<block type="my_function">' +
-              '<field name="NAME">' + myfolder[index][2] + '</field>' +
-              '</block>';
-            var block = Blockly.Xml.textToDom(blockText);
-            xmlList.push(block);
-          } else if (myfolder[index][0] == 'myfunction_1') {
-            var blockText = '<block type="my_function_1">' +
-              '<field name="NAME">' + myfolder[index][2] + '</field>' +
-              '</block>';
-            var block = Blockly.Xml.textToDom(blockText);
-            xmlList.push(block);
+      //循环函数数据将函数渲染到页面上
+      for (let i = 0; i < funcData.length; i++) {
+        demoWorkspace.myCallback = function (workspace) {
+          var myfolder = funcData[i].allData;
+          var xmlList = [];
+          for (let index = 0; index < myfolder.length; index++) {
+            if (myfolder[index].paramNum == '0') {
+              var blockText = '<block type="my_function">' +
+                '<field name="NAME">' + myfolder[index].name + '</field>' +
+                '</block>';
+              var block = Blockly.Xml.textToDom(blockText);
+              xmlList.push(block);
+            } else if (myfolder[index].paramNum == '1') {
+              var blockText = '<block type="my_function_1">' +
+                '<field name="NAME">' + myfolder[index].name + '</field>' +
+                '</block>';
+              var block = Blockly.Xml.textToDom(blockText);
+              xmlList.push(block);
+            }
           }
-        }
-        return xmlList;
-      };
-      demoWorkspace.myTAXFlyoutCallback = function (workspace) {
-        var myfolder = funcData.folder_tax;
-        var xmlList = [];
-        for (let index = 0; index < myfolder.length; index++) {
-          if (myfolder[index][0] == 'myfunction') {
-            var blockText = '<block type="my_function">' +
-              '<field name="NAME">' + myfolder[index][2] + '</field>' +
-              '</block>';
-            var block = Blockly.Xml.textToDom(blockText);
-            xmlList.push(block);
-          } else if (myfolder[index][0] == 'myfunction_1') {
-            var blockText = '<block type="my_function_1">' +
-              '<field name="NAME">' + myfolder[index][2] + '</field>' +
-              '</block>';
-            var block = Blockly.Xml.textToDom(blockText);
-            xmlList.push(block);
-          }
-        }
-        return xmlList;
-      };
-      workspace.registerToolboxCategoryCallback(
-        'SALARY', demoWorkspace.mySALARYFlyoutCallback);
-      workspace.registerToolboxCategoryCallback(
-        'TAX', demoWorkspace.myTAXFlyoutCallback);
+          return xmlList;
+        };
+        workspace.registerToolboxCategoryCallback(
+          funcData[i].group, demoWorkspace.myCallback);
+      }
 
     }
     ////设置my 自定义块
@@ -121,7 +103,7 @@
           .setAlign(Blockly.ALIGN_RIGHT)
           .appendField(new Blockly.FieldLabelSerializable(''), 'NAME');
         this.setOutput(true, 'Number');
-        this.setColour(130);
+        this.setColour(110);
         this.setTooltip('函数');
         this.setHelpUrl('');
       }
@@ -134,7 +116,7 @@
           .appendField(new Blockly.FieldLabelSerializable(""), "NAME");
         this.appendDummyInput();
         this.setOutput(true, null);
-        this.setColour(130);
+        this.setColour(160);
         this.setTooltip("");
         this.setHelpUrl("");
       }
@@ -204,20 +186,12 @@
     }
 
     function toAviator() {
-      //js启用严格模式  
-      // var code = '\'use strict\';\n\n'
       var code = '';
       code += Blockly.Aviator.workspaceToCode(demoWorkspace);
-      setOutput(code);
-      outputCode = code;
+      console.log(code);
     }
 
     function Save() {
-      var fileName = document.getElementById('fileName').value
-      if (fileName == '') {
-        window.alert('请输入名称')
-        return
-      }
       SaveXML(fileName)
       SaveScript(fileName);
     }
@@ -262,10 +236,15 @@
       })
 
     }
-    function LoadXml() {
-      var fileName = document.getElementById('fileName').value
+    function LoadXml(Name) {
+      var fileName = '';
+      if (Name) {
+        fileName = Name;
+      } else {
+        fileName = document.getElementById('fileName').value;
+      }
       if (fileName == '') {
-        window.alert('请输入要加载的文件名')
+        window.alert('请输入要加载的文件名');
         return
       }
       var url = URI + 'loadXML/' + fileName;
@@ -297,7 +276,34 @@
         }
       })
     }
+    function toImg() {
+      var diva = $('.blocklyBlockCanvas ')[0];
+      diva.setAttribute('transform', '');
+      var divb = $('.blocklyDraggable')[0];
+      divb.setAttribute('transform', '');
+      var web = $('.wangzhe')[0];
+      web.append(diva)
 
+      var test = $(".nihao").get(0); //将jQuery对象转换为dom对象
+      // 点击转成canvas
+      var opts = {
+        useCORS: true,//允许加载跨域的图片
+        tainttest: true, //检测每张图片都已经加载完成
+      };
+      html2canvas(test, opts).then(function (canvas) {
+        // canvas宽度
+        var canvasWidth = canvas.width;
+        // canvas高度
+        var canvasHeight = canvas.height;
+        console.log(canvasWidth, canvasHeight);
+        //渲染成img可展示到页面上。
+        var img = Canvas2Image.convertToImage(canvas, canvasWidth, canvasHeight);
+        console.log(img.src);
+
+      });
+
+
+    }
   </script>
 
   <style>
@@ -323,9 +329,9 @@
     }
 
     #blocklyDiv {
-      float: right;
-      height: 95%;
-      width: 69%;
+      /* float: right; */
+      height: 90%;
+      width: 100%;
       margin-top: 5px;
     }
 
@@ -342,6 +348,9 @@
 
 <body onload="start()">
   <div id="blocklyDiv">
+    <button onclick="Save()">保存</button>
+    <button onclick='toImg()' class="toCanvas">画图</button>
+    <button onclick='toAviator()'>打印Aviator</button>
   </div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category name="%{BKY_CATLOGIC}" colour="210">
@@ -367,49 +376,14 @@
     <sep></sep>
     <category name="%{BKY_CATVARIABLES}" colour="330" custom="VARIABLE"></category>
     </category>
-    <category name="%{BKY_CATMY}" colour="20">
-      <category name="工资" colour="20" custom="SALARY">
-      </category>
-      <category name="税率" colour="20" custom="TAX">
-      </category>
-    </category>
   </xml>
-  <table height="95%" width="30%">
-    <tr>
-      <td valign="top">
-        <p>
-          <span>名称: </span>
-          <input type="text" id="fileName">
-          <input type="button" value="Save" onclick="Save()">
-        </p>
-        <p>
-          Generate:
-          <input type="button" value="XML" onclick="toXml()">
-          <input type="button" value="LoadXml" onclick="LoadXml()">
-        </p>
-        <div style="display: inline-block;">
-          <input type="button" value="Aviator" onclick="toAviator()">
-        </div>
-        <p></p>
-      </td>
-    </tr>
 
-    <tr>
-      <td height="50%">
-        <textarea id="importExport" wrap="on"></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input type="button" value="执行" onclick="Run()">
-      </td>
-    </tr>
-    <tr>
-      <td height="20%">
-        <textarea id="executeRule" wrap="off" style="height: 100%;width: 100%;"></textarea>
-      </td>
-    </tr>
-  </table>
+  <div class="nihao " style='width: 100%; height: 500px; margin-top: 200px;'>
+    <svg width="1500px" height="500px" class="wangzhe">
+
+    </svg>
+  </div>
+
 </body>
 
 </html>
