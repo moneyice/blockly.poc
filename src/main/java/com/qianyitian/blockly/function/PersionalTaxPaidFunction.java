@@ -1,10 +1,15 @@
 package com.qianyitian.blockly.function;
 
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.type.AviatorDecimal;
 import com.googlecode.aviator.runtime.type.AviatorObject;
+import com.qianyitian.blockly.util.FunctionUtil;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +32,7 @@ public class PersionalTaxPaidFunction extends AbstractFunction {
         if ("111".equals(userId)) {
             return BigDecimal.valueOf(5000.00);
         } else {
-            return BigDecimal.valueOf(0);
+            return BigDecimal.valueOf(10);
         }
     }
 

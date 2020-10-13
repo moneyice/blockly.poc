@@ -1,4 +1,4 @@
-package com.qianyitian.blockly.function;
+package com.qianyitian.blockly.function.other;
 
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.function.FunctionUtils;
@@ -38,6 +38,6 @@ public class SubjectFunciton extends AbstractFunction {
 
     @Override
     public String getName() {
-        return "subjectFunciton";
+        return "subject";
     }
 }
