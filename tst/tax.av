@@ -1,0 +1,7 @@
+monthSalary = annualMonthlyTaxableSalary() - annualAllowance() - annualSeriousIllnessTreatment() - annualMortgageInterest() - annualSpecialDeductionAdjustment();
+if (monthSalary > 0) {
+personTax = calculateTax(monthSalary);
+return personTax;
+}
+return 0;
+

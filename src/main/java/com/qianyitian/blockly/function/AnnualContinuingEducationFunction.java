@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 年度继续教育
  */
-public class annualContinuingEducationFunction extends AbstractFunction {
+public class AnnualContinuingEducationFunction extends AbstractFunction {
     @Override
     public AviatorObject call(Map<String, Object> env) {
         String userId = (String) env.get("userId");

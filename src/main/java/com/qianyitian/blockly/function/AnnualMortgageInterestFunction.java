@@ -16,7 +16,6 @@ public class AnnualMortgageInterestFunction extends AbstractFunction {
         return new AviatorDecimal(annualMortgageInterest(userId));
     }
 
-
     /**
      * 年度房贷利息
      *
