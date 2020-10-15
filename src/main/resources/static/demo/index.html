@@ -236,13 +236,9 @@
       })
 
     }
-    function LoadXml(Name) {
+    function LoadXml() {
       var fileName = '';
-      if (Name) {
-        fileName = Name;
-      } else {
-        fileName = document.getElementById('fileName').value;
-      }
+      fileName = document.getElementById('fileName').value;
       if (fileName == '') {
         window.alert('请输入要加载的文件名');
         return
@@ -351,6 +347,11 @@
     <button onclick="Save()">保存</button>
     <button onclick='toImg()' class="toCanvas">画图</button>
     <button onclick='toAviator()'>打印Aviator</button>
+    <input type="text" id="fileName">
+    <button onclick="LoadXml()">加载</button>
+    <button onclick="Run()">执行</button>
+    <label>执行结果：</label>
+    <input id="executeRule" wrap="off" style="height: 20px;width:200px;"></input>
   </div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category name="%{BKY_CATLOGIC}" colour="210">
