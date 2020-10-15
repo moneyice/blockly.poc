@@ -104,9 +104,7 @@ public class BlocklyController {
         Expression exp = AviatorEvaluator.getInstance().compileScript(filename, false);
         Object execute = exp.execute(env);
         BigDecimal tax = (BigDecimal) execute;
-
-        String result = "运行结果为: " + tax;
-        return result;
+        return tax.toString();
     }
 
 

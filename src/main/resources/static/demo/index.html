@@ -143,10 +143,10 @@
     }
 
     function fromXml(filename, xmlText, opt_append) {
-      var output = document.getElementById('importExport');
-      output.value = xmlText;
-      output.scrollTop = 0;
-      output.scrollLeft = 0;
+      // var output = document.getElementById('importExport');
+      // output.value = xmlText;
+      // output.scrollTop = 0;
+      // output.scrollLeft = 0;
       if (!opt_append) {
         demoWorkspace.clear();
       }
@@ -192,6 +192,8 @@
     }
 
     function Save() {
+      var fileName = '';
+      fileName = document.getElementById('fileName').value;
       SaveXML(fileName)
       SaveScript(fileName);
     }

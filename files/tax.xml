@@ -1,10 +1,10 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
-    <variable id="X$=feP@tl.k?GT;qU`gw">monthSalary</variable>
-    <variable id="FxclC.xQzWr)G{g5=oL3">personTax</variable>
+    <variable id="Z~}wi)~6R!+r:e?zEKrv">扣税月薪额</variable>
+    <variable id="FxclC.xQzWr)G{g5=oL3">个税</variable>
   </variables>
   <block type="variables_set" x="-312" y="138">
-    <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+    <field name="VAR" id="Z~}wi)~6R!+r:e?zEKrv">扣税月薪额</field>
     <value name="VALUE">
       <block type="math_arithmetic">
         <field name="OP">MINUS</field>
@@ -19,7 +19,7 @@
                     <field name="OP">MINUS</field>
                     <value name="A">
                       <block type="my_function">
-                        <field name="NAME">年度月薪计税工资</field>
+                        <field name="NAME">年度月薪计算工资</field>
                       </block>
                     </value>
                     <value name="B">
@@ -31,7 +31,7 @@
                 </value>
                 <value name="B">
                   <block type="my_function">
-                    <field name="NAME">年度大病医疗</field>
+                    <field name="NAME">年度子女教育</field>
                   </block>
                 </value>
               </block>
@@ -57,7 +57,7 @@
             <field name="OP">GT</field>
             <value name="A">
               <block type="variables_get">
-                <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+                <field name="VAR" id="Z~}wi)~6R!+r:e?zEKrv">扣税月薪额</field>
               </block>
             </value>
             <value name="B">
@@ -69,13 +69,13 @@
         </value>
         <statement name="DO0">
           <block type="variables_set">
-            <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">personTax</field>
+            <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">个税</field>
             <value name="VALUE">
               <block type="my_function_1">
                 <field name="NAME">计算个人所得税</field>
                 <value name="FIRST">
                   <block type="variables_get">
-                    <field name="VAR" id="X$=feP@tl.k?GT;qU`gw">monthSalary</field>
+                    <field name="VAR" id="Z~}wi)~6R!+r:e?zEKrv">扣税月薪额</field>
                   </block>
                 </value>
               </block>
@@ -84,7 +84,7 @@
               <block type="my_return">
                 <value name="VALUE">
                   <block type="variables_get">
-                    <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">personTax</field>
+                    <field name="VAR" id="FxclC.xQzWr)G{g5=oL3">个税</field>
                   </block>
                 </value>
               </block>

@@ -13,9 +13,8 @@ import java.util.Map;
  */
 public class AnnualAllowanceFunction extends AbstractFunction {
     @Override
-    public AviatorObject call(Map<String, Object> env, AviatorObject code) {
+    public AviatorObject call(Map<String, Object> env) {
         String userId = (String) env.get("userId");
-        String codes = FunctionUtils.getStringValue(code, env);
         return new AviatorDecimal(annualAllowance(userId));
     }
 

@@ -1,1 +1,7 @@
-annualAllowance() - annualSeriousIllnessTreatment()
+koushuiyuexine = annualMonthlyTaxableSalary() - annualAllowance() - annualChildrenEducation() - annualMortgageInterest() - annualSpecialDeductionAdjustment();
+if (koushuiyuexine > 0) {
+geshui = calculateTax(koushuiyuexine);
+return geshui;
+}
+return 0;
+
