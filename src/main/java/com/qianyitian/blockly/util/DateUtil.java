@@ -116,8 +116,6 @@ public class DateUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(getFirstDayOfMonth("2020-02"));
-        System.out.println(getLastDayOfMonth("2020-02"));
-        System.out.println(getMonthMiddleDay());
+
     }
 }

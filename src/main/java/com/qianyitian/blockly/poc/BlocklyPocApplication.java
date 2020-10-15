@@ -1,5 +1,6 @@
 package com.qianyitian.blockly.poc;
 
+import com.qianyitian.blockly.util.SpringContextUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
