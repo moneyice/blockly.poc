@@ -409,11 +409,13 @@ Blockly.Flyout.prototype.positionAt_ = function(width, height, x, y) {
   this.svgGroup_.setAttribute("height", height);
   if (this.svgGroup_.tagName == 'svg') {
     var transform = 'translate(' + x + 'px,' + y + 'px)';
+ 
     Blockly.utils.dom.setCssTransform(this.svgGroup_, transform);
   } else {
     // IE and Edge don't support CSS transforms on SVG elements so
     // it's important to set the transform on the SVG element itself
     var transform = 'translate(' + x + ',' + y + ')';
+ 
     this.svgGroup_.setAttribute("transform", transform);
   }
 

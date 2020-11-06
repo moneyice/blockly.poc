@@ -39,7 +39,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       "name": "TEXT",
       "text": ""
     }],
-    "output": "String",
+    "output": "Number",
     "style": "text_blocks",
     "helpUrl": "%{BKY_TEXT_TEXT_HELPURL}",
     "tooltip": "%{BKY_TEXT_TEXT_TOOLTIP}",

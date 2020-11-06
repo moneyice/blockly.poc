@@ -1176,21 +1176,21 @@ Blockly.BlockSvg.prototype.setWarningText = function(text, opt_id) {
  * Give this block a mutator dialog.
  * @param {Blockly.Mutator} mutator A mutator dialog instance or null to remove.
  */
-Blockly.BlockSvg.prototype.setMutator = function(mutator) {
-  if (this.mutator && this.mutator !== mutator) {
-    this.mutator.dispose();
-  }
-  if (mutator) {
-    mutator.setBlock(this);
-    this.mutator = mutator;
-    mutator.createIcon();
-  }
-  if (this.rendered) {
-    this.render();
-    // Adding or removing a mutator icon will cause the block to change shape.
-    this.bumpNeighbours();
-  }
-};
+// Blockly.BlockSvg.prototype.setMutator = function(mutator) {
+//   if (this.mutator && this.mutator !== mutator) {
+//     this.mutator.dispose();
+//   }
+//   if (mutator) {
+//     mutator.setBlock(this);
+//     this.mutator = mutator;
+//     mutator.createIcon();
+//   }
+//   if (this.rendered) {
+//     this.render();
+//     // Adding or removing a mutator icon will cause the block to change shape.
+//     this.bumpNeighbours();
+//   }
+// };
 
 /**
  * Set whether the block is disabled or not.

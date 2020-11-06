@@ -25,6 +25,7 @@
   <script src="../blocks/text.js"></script>
   <script src="../blocks/variables.js"></script>
   <script src="../blocks/procedures.js"></script>
+  <script src="../blocks/my_blocks.js"></script>
   <script>
     'use strict';
     var demoWorkspace = null;
@@ -34,7 +35,6 @@
     function start() {
       //页面初始化前加入分组结构
       var funcData = getFuncData();
-      console.log(funcData);
       for (let i = 0; i < funcData.length; i++) {
         var newCategory = document.createElement('category')
         newCategory.setAttribute('name', funcData[i].group)
@@ -81,47 +81,120 @@
         workspace.registerToolboxCategoryCallback(
           funcData[i].group, demoWorkspace.myCallback);
       }
+      onClickToSearch(funcData);
+    }
+    var flag1=false;
+    var flag2=false;
+    var flag3=false;
+    function onClickToSearch(funcData){
+      var len=$("#blockly-0 div:eq(1)").find("div").find("[id]").length
+      for (var  i = 0; i < len; i++) {
+      if(i<3){
+          $("#blockly-"+(i+1)).click(function(){
+            if($("foreignObject").length>0){
+              $("foreignObject").remove()
+              flag1=false;
+              flag2=false;
+            }
+          })
+      }else{
+          $("#blockly-"+(i+1)).click(function(e){
+            if(!flag3){
 
+            }else{
+              var newFuncData=funcData;
+              newFunctionBySearch(newFuncData[pageIndex-4].allData,newFuncData[pageIndex-4].group,false)
+              flag3=false;
+            }
+            var eleId=e.currentTarget.id;
+             window.pageIndex=Number(eleId.slice(8));
+  
+           if(!flag1){
+            var f=document.createElementNS('http://www.w3.org/2000/svg','foreignObject');
+            f.setAttribute("width","100%");
+            f.setAttribute("height","25")
+            f.setAttribute("transform","translate(8,-25)");
+            var inp=document.createElement("input");
+            inp.setAttribute("id","searchInput")
+            inp.setAttribute("type","text")
+            inp.setAttribute("style","width: 60%;height:20px;border: 1px solid black;")
+            var btn=document.createElement("button");
+            btn.setAttribute("style","width: 25%;height: 24px;padding: 0;");
+            btn.setAttribute("class","searchButton")
+            btn.innerText="搜索";
+            f.append(inp);
+            f.append(btn);
+           var blocklyBlockCanvas= document.getElementsByClassName("blocklyBlockCanvas")[2];
+              blocklyBlockCanvas.prepend(f);
+              flag1=true;
+           }else{
+             $("#searchInput").val("");
+           }
+           if(!flag2){
+            flag2=true;
+            //点击搜索
+                $(".searchButton").click(function(){
+                  var newData=[]
+                  var searchType=funcData[pageIndex-4].group;
+                 var searchData=funcData[pageIndex-4].allData
+                 var inputVal= $("#searchInput").val();
+                 for (var j = 0; j < searchData.length; j++) {
+                  var searchStr= searchData[j].name;
+                  if(searchStr.indexOf(inputVal)!="-1"){
+                    newData.push(searchData[j])
+                  }
+                 }
+                 if(newData.length==0){
+                    window.alert("没有搜索到该"+searchType)
+                 }else{
+                  newFunctionBySearch(newData,searchType,true)
+                 }
+                 if(newData.length==funcData[pageIndex-4].allData.length){
+                  
+                 }else{
+                   flag3=true;
+                 }
+                })
+           }
+         
+        })
+      }
+     }
     }
-    ////设置my 自定义块
-    Blockly.Blocks['my_return'] = {
-      init: function () {
-        this.appendValueInput('VALUE')
-          .setCheck('Number')
-          .appendField('返回', 'NAME');
-        this.setPreviousStatement(true, 'Number');
-        // this.setOutput(true, 'Number');
-        this.setColour(210);
-        this.setTooltip('返回');
-        this.setHelpUrl('return');
-      }
-    };
-    //my-function   .appendField('getHome');
-    Blockly.Blocks['my_function'] = {
-      init: function () {
-        this.appendDummyInput()
-          .setAlign(Blockly.ALIGN_RIGHT)
-          .appendField(new Blockly.FieldLabelSerializable(''), 'NAME');
-        this.setOutput(true, 'Number');
-        this.setColour(110);
-        this.setTooltip('函数');
-        this.setHelpUrl('');
+    function newFunctionBySearch(newData,searchType,isChange){
+      
+      var workspace = Blockly.getMainWorkspace();
+      demoWorkspace.myCallback = function (workspace) {
+          var xmlList = [];
+          for (let index = 0; index < newData.length; index++) {
+            if (newData[index].paramNum == '0') {
+              var blockText = '<block type="my_function">' +
+                '<field name="NAME">' + newData[index].name + '</field>' +
+                '</block>';
+              var block = Blockly.Xml.textToDom(blockText);
+              xmlList.push(block);
+            } else if (newData[index].paramNum == '1') {
+              var blockText = '<block type="my_function_1">' +
+                '<field name="NAME">' + newData[index].name + '</field>' +
+                '</block>';
+              var block = Blockly.Xml.textToDom(blockText);
+              xmlList.push(block);
+            }
+          }
+          return xmlList;
+        };
+        workspace.registerToolboxCategoryCallback(
+          searchType, demoWorkspace.myCallback);
+       
+          changePageFunc(isChange);
+    }
+    function changePageFunc(isChange){
+      if(isChange){
+        for (let l = 0; l < 2; l++) {
+            $("#blockly-"+pageIndex).click();
+          }
       }
     }
-    //带一个参数的函数  块样式配置
-    Blockly.Blocks['my_function_1'] = {
-      init: function () {
-        this.appendValueInput("FIRST")
-          .setCheck(null)
-          .appendField(new Blockly.FieldLabelSerializable(""), "NAME");
-        this.appendDummyInput();
-        this.setOutput(true, null);
-        this.setColour(160);
-        this.setTooltip("");
-        this.setHelpUrl("");
-      }
-    };
-    // demoWorkspace.clear();
     function fetchFile(xmlUrl) {
       try {
         var xmlHttp = new XMLHttpRequest();
@@ -376,9 +449,8 @@
       <block type="text_length"></block>
       <block type="text_isEmpty"></block>
     </category>
-    <sep></sep>
-    <category name="%{BKY_CATVARIABLES}" colour="330" custom="VARIABLE"></category>
-    </category>
+    <!-- <category name="%{BKY_CATVARIABLES}" colour="330" custom="VARIABLE"></category>
+    </category> -->
   </xml>
 
   <div class="nihao " style='width: 100%; height: 500px; margin-top: 200px;'>

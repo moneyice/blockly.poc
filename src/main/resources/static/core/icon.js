@@ -60,29 +60,29 @@ Blockly.Icon.prototype.iconXY_ = null;
 /**
  * Create the icon on the block.
  */
-Blockly.Icon.prototype.createIcon = function() {
-  if (this.iconGroup_) {
-    // Icon already exists.
-    return;
-  }
-  /* Here's the markup that will be generated:
-  <g class="blocklyIconGroup">
-    ...
-  </g>
-  */
-  this.iconGroup_ = Blockly.utils.dom.createSvgElement('g',
-      {'class': 'blocklyIconGroup'}, null);
-  if (this.block_.isInFlyout) {
-    Blockly.utils.dom.addClass(
-        /** @type {!Element} */ (this.iconGroup_), 'blocklyIconGroupReadonly');
-  }
-  this.drawIcon_(this.iconGroup_);
+// Blockly.Icon.prototype.createIcon = function() {
+//   if (this.iconGroup_) {
+//     // Icon already exists.
+//     return;
+//   }
+//   /* Here's the markup that will be generated:
+//   <g class="blocklyIconGroup">
+//     ...
+//   </g>
+//   */
+//   this.iconGroup_ = Blockly.utils.dom.createSvgElement('g',
+//       {'class': 'blocklyIconGroup'}, null);
+//   if (this.block_.isInFlyout) {
+//     Blockly.utils.dom.addClass(
+//         /** @type {!Element} */ (this.iconGroup_), 'blocklyIconGroupReadonly');
+//   }
+//   this.drawIcon_(this.iconGroup_);
 
-  this.block_.getSvgRoot().appendChild(this.iconGroup_);
-  Blockly.bindEventWithChecks_(
-      this.iconGroup_, 'mouseup', this, this.iconClick_);
-  this.updateEditable();
-};
+//   this.block_.getSvgRoot().appendChild(this.iconGroup_);
+//   Blockly.bindEventWithChecks_(
+//       this.iconGroup_, 'mouseup', this, this.iconClick_);
+//   this.updateEditable();
+// };
 
 /**
  * Dispose of this icon.

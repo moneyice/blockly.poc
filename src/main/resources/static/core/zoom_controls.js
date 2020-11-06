@@ -161,7 +161,6 @@ Blockly.ZoomControls.prototype.position = function() {
     this.zoomInGroup_.setAttribute('transform', 'translate(0, 43)');
     this.zoomOutGroup_.setAttribute('transform', 'translate(0, 77)');
   }
-
   this.svgGroup_.setAttribute('transform',
       'translate(' + this.left_ + ',' + this.top_ + ')');
 };

@@ -1070,12 +1070,23 @@ Blockly.WorkspaceSvg.prototype.getParentSvg = function () {
  * @param {number} y Vertical translation, in pixel units relative to the
  *    top left of the Blockly div.
  */
+//My+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++My+++++++++++++++++++++++++++++++++++
 Blockly.WorkspaceSvg.prototype.translate = function (x, y) {
   if (this.useWorkspaceDragSurface_ && this.isDragSurfaceActive_) {
     this.workspaceDragSurface_.translateSurface(x, y);
   } else {
-    var translation = 'translate(' + x + ',' + y + ') ' +
+    var translation;
+    if(y==0){
+     translation = 'translate(' + x + ',' + y + ') ' +
       'scale(' + this.scale + ')';
+    }else if(y==2){
+      translation = 'translate(' + 0 + ',' + 25 + ') ' +
+      'scale(' + this.scale + ')';
+      var len=$("#blockly-0 div:eq(1)").find("div").find("[id]").length
+    }else if(translation==undefined){
+      translation = 'translate(' + x + ',' + y + ') ' +
+      'scale(' + this.scale + ')';
+    }
     this.svgBlockCanvas_.setAttribute('transform', translation);
     this.svgBubbleCanvas_.setAttribute('transform', translation);
   }
