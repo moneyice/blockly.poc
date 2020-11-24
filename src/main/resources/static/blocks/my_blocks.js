@@ -32,7 +32,7 @@
           this.appendDummyInput();
           this.setOutput(true, null);
           this.setColour("#FFFF00");
-          this.setTooltip("");
+          this.setTooltip("带一个参数的函数");
           this.setHelpUrl("");
         }
       };

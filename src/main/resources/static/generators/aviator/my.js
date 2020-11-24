@@ -47,6 +47,8 @@ Blockly.Aviator['my_function'] = function (block) {
       break;
     }
   }
+  this.setTooltip("nihao")
+  console.log(this);
   return code;
 };
 

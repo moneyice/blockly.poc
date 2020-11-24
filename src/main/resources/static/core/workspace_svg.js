@@ -43,8 +43,6 @@ goog.require('Blockly.Xml');
 goog.requireType('Blockly.blockRendering.Renderer');
 goog.requireType('Blockly.IASTNodeLocationSvg');
 goog.requireType('Blockly.IBoundedElement');
-
-
 /**
  * Class for a workspace.  This is an onscreen area with optional trashcan,
  * scrollbars, bubbles, and dragging.
@@ -863,7 +861,20 @@ Blockly.WorkspaceSvg.prototype.dispose = function () {
  * @override
  */
 Blockly.WorkspaceSvg.prototype.newBlock = function (prototypeName, opt_id) {
-  return new Blockly.BlockSvg(this, prototypeName, opt_id);
+  var block=new Blockly.BlockSvg(this, prototypeName, opt_id);
+  setTimeout(function(){
+    var svgDom=block.svgGroup_.getElementsByClassName("blocklyText").item(0).innerHTML;
+    var funcData=window.funcData;
+    for(var i=0;i<funcData.length;i++){
+      for (let j = 0; j < funcData[i].allData.length; j++) {
+        if(svgDom== funcData[i].allData[j].name){
+          block.tooltip=funcData[i].allData[j].code+","+funcData[i].allData[j].customFlag;
+        }
+      }
+    }
+  },0);
+
+  return block;
 };
 
 /**

@@ -35,6 +35,7 @@
     function start() {
       //页面初始化前加入分组结构
       var funcData = getFuncData();
+      window.funcData=funcData;
       for (let i = 0; i < funcData.length; i++) {
         var newCategory = document.createElement('category')
         newCategory.setAttribute('name', funcData[i].group)
