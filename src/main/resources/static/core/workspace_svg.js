@@ -861,19 +861,26 @@ Blockly.WorkspaceSvg.prototype.dispose = function () {
  * @override
  */
 Blockly.WorkspaceSvg.prototype.newBlock = function (prototypeName, opt_id) {
+  console.log("laile,",opt_id)
   var block=new Blockly.BlockSvg(this, prototypeName, opt_id);
-  setTimeout(function(){
-    var svgDom=block.svgGroup_.getElementsByClassName("blocklyText").item(0).innerHTML;
-    var funcData=window.funcData;
-    for(var i=0;i<funcData.length;i++){
-      for (let j = 0; j < funcData[i].allData.length; j++) {
-        if(svgDom== funcData[i].allData[j].name){
-          block.tooltip=funcData[i].allData[j].code+","+funcData[i].allData[j].customFlag;
-        }
-      }
-    }
-  },0);
+  // setTimeout(function(){
+  //   var svgDom=block.svgGroup_.getElementsByClassName("blocklyText").item(0).innerHTML;
+  //   console.log(svgDom)
+  //   var funcData=window.funcData;
+  //   for(var i=0;i<funcData.length;i++){
+  //     for (let j = 0; j < funcData[i].allData.length; j++) {
+  //       if(svgDom== funcData[i].allData[j].name){
+  //         block.tooltip=funcData[i].allData[j].code+","+funcData[i].allData[j].customFlag;
+  //       }
+  //     }
+  //   }
+  // },0);
+  if(opt_id==null){
 
+  }else{
+    block.tooltip=opt_id;
+
+  }
   return block;
 };
 
@@ -2656,6 +2663,7 @@ Blockly.WorkspaceSvg.prototype.registerToolboxCategoryCallback = function (key,
   if (typeof func != 'function') {
     throw TypeError('Toolbox category callbacks must be functions.');
   }
+
   this.toolboxCategoryCallbacks_[key] = func;
 };
 

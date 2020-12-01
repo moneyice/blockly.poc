@@ -18,8 +18,8 @@
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField(new Blockly.FieldLabelSerializable(''), 'NAME');
           this.setOutput(true, 'Number');
-          this.setColour("#FFC0CB");
-          this.setTooltip('函数');
+          this.setColour("#FF9900");
+          this.setTooltip('');
           this.setHelpUrl('');
         }
       }
@@ -31,8 +31,8 @@
             .appendField(new Blockly.FieldLabelSerializable(""), "NAME");
           this.appendDummyInput();
           this.setOutput(true, null);
-          this.setColour("#FFFF00");
-          this.setTooltip("带一个参数的函数");
+          this.setColour("#993300");
+          this.setTooltip("这是带一个参数的函数");
           this.setHelpUrl("");
         }
       };

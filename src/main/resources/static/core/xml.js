@@ -638,7 +638,8 @@ Blockly.Xml.domToBlockHeadless_ = function(xmlBlock, workspace) {
   if (!prototypeName) {
     throw TypeError('Block type unspecified: ' + xmlBlock.outerHTML);
   }
-  var id = xmlBlock.getAttribute('id');
+  var id = xmlBlock.getAttribute('category');
+
   block = workspace.newBlock(prototypeName, id);
 
   var blockChild = null;

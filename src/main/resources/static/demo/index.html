@@ -64,7 +64,7 @@
           var xmlList = [];
           for (let index = 0; index < myfolder.length; index++) {
             if (myfolder[index].paramNum == '0') {
-              var blockText = '<block type="my_function">' +
+              var blockText = '<block type="my_function" category="'+myfolder[index].code+'">' +
                 '<field name="NAME">' + myfolder[index].name + '</field>' +
                 '</block>';
               var block = Blockly.Xml.textToDom(blockText);

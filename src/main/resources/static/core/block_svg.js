@@ -690,7 +690,9 @@ Blockly.BlockSvg.prototype.tab = function(start, forward) {
  * @private
  */
 Blockly.BlockSvg.prototype.onMouseDown_ = function(e) {
+  console.log(this.workspace&&this.workspace.getGesture(e));
   var gesture = this.workspace && this.workspace.getGesture(e);
+  console.log(gesture,"new")
   if (gesture) {
     gesture.handleBlockStart(e, this);
   }

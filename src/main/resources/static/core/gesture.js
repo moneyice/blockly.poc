@@ -314,7 +314,7 @@ Blockly.Gesture.prototype.updateDragDelta_ = function (currentXY) {
  */
 //从flyout拖出更新
 Blockly.Gesture.prototype.updateIsDraggingFromFlyout_ = function () {
-  // console.log('5');
+  console.log('5');
   if (!this.targetBlock_) {
     return false;
   }
@@ -332,7 +332,11 @@ Blockly.Gesture.prototype.updateIsDraggingFromFlyout_ = function () {
     }
     // The start block is no longer relevant, because this is a drag.
     this.startBlock_ = null;
+    //设置tooltip 防止被刷新
+    var newToolTip=this.targetBlock_.tooltip;
     this.targetBlock_ = this.flyout_.createBlock(this.targetBlock_);
+    //设置上tooltip
+    this.targetBlock_.tooltip=newToolTip;
     this.targetBlock_.select();
     return true;
   }
@@ -771,14 +775,16 @@ Blockly.Gesture.prototype.doFieldClick_ = function () {
  * @private
  */
 Blockly.Gesture.prototype.doBlockClick_ = function () {
-  // console.log('25');
+  console.log('25');
   // Block click in an autoclosing flyout.
   if (this.flyout_ && this.flyout_.autoClose) {
     if (this.targetBlock_.isEnabled()) {
       if (!Blockly.Events.getGroup()) {
         Blockly.Events.setGroup(true);
       }
+      var newToolTip=this.targetBlock_.tooltip;
       var newBlock = this.flyout_.createBlock(this.targetBlock_);
+      newBlock.tooltip=newToolTip;
       newBlock.scheduleSnapAndBump();
     }
   } else {
